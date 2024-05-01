@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <!-- Meta tags -->
+    <meta charset="utf-8">
+    <title>Medic | Medical HTML Template</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Medical HTML Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="author" content="Themefisher">
+    <meta name="generator" content="Themefisher Medical HTML Template v1.0">
+    <meta name="theme-name" content="medic" />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/assets/Front/plugins/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/Front/plugins/slick/slick.css">
+    <link rel="stylesheet" href="/assets/Front/plugins/slick/slick-theme.css">
+    <link rel="stylesheet" href="/assets/Front/plugins/fancybox/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="/assets/Front/plugins/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="/assets/Front/plugins/animation/animate.min.css">
+    <link rel="stylesheet" href="/assets/Front/plugins/jquery-ui/jquery-ui.css">
+    <link rel="stylesheet" href="/assets/Front/plugins/timePicker/timePicker.css">
+    <link href="/assets/Front/css/style.css" rel="stylesheet">
+    <link rel="icon" href="/assets/Front/images/favicon.png" type="image/x-icon">
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+
+    <!-- Nucleo Icons -->
+    <link href="/assets/Back/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="/assets/Back/css/nucleo-svg.css" rel="stylesheet" />
+
+
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+
+    <!-- CSS Files -->
+
+    <link id="pagestyle" href="/assets/Back/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
+
+    <!-- Nepcha Analytics (nepcha.com) -->
+    <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
+    <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="page-wrapper">
+
+
+        <!--Header Upper-->
+        <section class="header-uper">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-xl-4 col-lg-3">
+                        <div class="logo">
+                            <a href="index.html">
+                                <img loading="lazy" class="img-fluid" src="/assets/Front/images/logo.png" alt="logo">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xl-8 col-lg-9">
+                        <div class="right-side">
+                            <ul class="contact-info pl-0 mb-4 mb-md-0">
+                                <li class="item text-left">
+                                    <div class="icon-box">
+                                        <i class="far fa-envelope"></i>
+                                    </div>
+                                    <strong>Email</strong>
+                                    <br>
+                                    <a href="mailto:info@medic.com">
+                                        <span>info@medic.com</span>
+                                    </a>
+                                </li>
+                                <li class="item text-left">
+                                    <div class="icon-box">
+                                        <i class="fas fa-phone"></i>
+                                    </div>
+                                    <strong>Call Now</strong>
+                                    <br>
+                                    <span>+ (88017) - 123 - 4567</span>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--Header Upper-->
+
+        <!--Main Header-->
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarLinks"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarLinks">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" routerLink="/home">Home</a>
+                        </li>
+                        <li class="nav-item @@about">
+                            <a class="nav-link" (click)="toggleSection('etudiants')">Etudiants</a>
+                        </li>
+                        <li class="nav-item @@service">
+                            <a class="nav-link" (click)="toggleSection('categorieEtudiant')">Categorie Etudiant</a>
+                        </li>
+                        <li class="nav-item @@gallery">
+                            <a class="nav-link" (click)="toggleSection('objectives')">Objectives</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!--End Main Header -->
+        <div *ngIf="showEtudiants">
+            <section>
+                <div class="container-fluid py-4">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card my-4">
+                                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                                    <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                                        <h6 class="text-white text-capitalize ps-3">table des Etudiants</h6>
+                                    </div>
+                                </div>
+                                <div class="card-body px-0 pb-2">
+                                    <div class="table-responsive p-0">
+                                        <table class="table align-items-center mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th
+                                                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                        Etudiant</th>
+                                                    <th class="text-secondary opacity-7"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let student of students">
+                                                    <td>
+                                                        <div class="d-flex px-2 py-1">
+
+                                                            <div class="d-flex flex-column justify-content-center">
+                                                                <h6 class="mb-0 text-sm">{{ student.name }}</h6>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="align-middle">
+                                                        <a (click)="openeditModal()"
+                                                            class="text-secondary font-weight-bold text-xs"
+                                                            data-toggle="tooltip" data-original-title="Edit user">
+                                                            Edit
+                                                        </a>
+                                                        <div class="modal" id="editModal">
+                                                            <div class="modal-dialog" style="margin-top: 10%;">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header"
+                                                                        style="align-items: center;">
+
+                                                                        <h5>Editer
+                                                                            <span>l'étudiant</span>
+                                                                        </h5>
+                                                                        <button type="button" class="close"
+                                                                            data-dismiss="modal"
+                                                                            (click)="closeeditModal()"
+                                                                            style="margin-bottom: 3%; width: min-content; align-self: flex-end;">&times;</button>
+                                                                    </div>
+
+                                                                    <div class="modal-body">
+                                                                        <style>
+                                                                            .dropdown {
+                                                                                position: relative;
+                                                                                display: inline-block;
+                                                                            }
+
+                                                                            .dropdown-content {
+                                                                                display: none;
+                                                                                position: absolute;
+                                                                                background-color: #f9f9f9;
+                                                                                min-width: 160px;
+                                                                                box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+                                                                                padding: 12px 16px;
+                                                                                z-index: 1;
+                                                                            }
+
+                                                                            .dropdown:hover .dropdown-content {
+                                                                                display: block;
+                                                                            }
+                                                                        </style>
+
+                                                                        <div class="dropdown">
+                                                                            <h6>assign student to categorie</h6>
+                                                                            <div class="dropdown-content"
+                                                                                *ngFor="let category of categories">
+                                                                                <span>{{ category.title }}</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+        <div *ngIf="showCategorieEtudiant">
+            <!--team section-->
+            <section class="team-section section">
+                <div class="container">
+                    <div class="section-title text-center">
+                        <h3>Les Catégories
+                            <span>des étudiants</span>
+                        </h3>
+
+                    </div>
+                    <div class="row justify-content-center" style="align-items: baseline;">
+                        <div *ngFor="let category of categories" class="col-lg-4 col-md-6">
+                            <div class="team-member">
+                                <img loading="lazy" src="/assets/Front/images/team/download.jpg" alt="doctor"
+                                    class="img-fluid">
+                                <div class="contents text-center">
+                                    <h4>{{ category.title }}</h4>
+
+                                    <button type="button" class="btn btn-main"
+                                        (click)="openCategorieModal(category.title)">Consulter</button>
+                                </div>
+
+                                <div class="modal" id="categorieModal">
+                                    <div class="modal-dialog" style="margin-top: 10%;">
+                                        <div class="modal-content">
+                                            <div class="modal-header" style="align-items: center;">
+                                                <h5 id="categorieModalTitle"
+                                                    style="margin-left: 33%; width: max-content; align-self: flex-start;">
+                                                    Titre du Categorie</h5>
+
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    (click)="closeCategorieModal()"
+                                                    style="margin-bottom: 3%; width: min-content; align-self: flex-end;">&times;</button>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <ul>
+                                                    <!-- Filter objectives based on selected category title -->
+                                                    <li *ngFor="let category of categories">
+                                                        <ng-container *ngIf="category.title === selectedCategoryTitle">
+                                                            <h5>{{ category.title }}</h5>
+                                                            <ul>
+                                                                <li *ngFor="let objective of category.objectives">{{
+                                                                    objective }}</li>
+                                                            </ul>
+                                                        </ng-container>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!--End team section-->
+
+        </div>
+        <!-- Objectives section -->
+        <div class="content style text-center" *ngIf="showObjectives">
+            <div class="content style text-center" id="expertForm">
+                <section class="section style-three pb-0">
+                    <div class="container">
+                        <div class="section-title text-center " style="margin-bottom: 40PX;">
+                            <h3>Les Objectives
+                                <span>des étudiants</span>
+                            </h3>
+
+                        </div>
+                        <div class="row">
+                            <!-- Displayed cards -->
+                            <div *ngFor="let objective of objectives; let i = index" class="col-lg-6 mb-4">
+                                <div class="card position-relative">
+                                    <div class="card-body">
+                                        <div class="contact-area style-two pl-0 pr-0 pr-lg-4">
+                                            <div class="section-title">
+                                                <input type="text" class="form-control" [(ngModel)]="objective.title"
+                                                    placeholder="Objective Title">
+                                            </div>
+                                            <form name="objective_form_{{i}}" class="default-form contact-form"
+                                                action="javascript:void(0)" method="post">
+                                                <div class="form-group">
+                                                    <label for="objectiveDescription">Objective Description</label>
+                                                    <textarea class="form-control" name="objectiveDescription" rows="3"
+                                                        placeholder="Objective Description" required
+                                                        [(ngModel)]="objective.description"></textarea>
+                                                </div>
+                                                <!-- Mission button -->
+                                                <div class="form-group"
+                                                    style="display: inline-flex; align-items: center;">
+                                                    <label for="mission-btn-+" style="margin-right: 40px;">Please add
+                                                        missions</label>
+                                                    <button type="button" class="form-control btn-style-one mission-btn"
+                                                        type="button" (click)="openMissionModal()"
+                                                        name="mission-btn-+">+</button>
+                                                </div>
+
+                                                <div class="modal" id="missionModal" style="overflow-y: auto;">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header" style="align-items: center;">
+                                                                <h5
+                                                                    style="margin-left: 33%; width: max-content; align-self: flex-start;">
+                                                                    Add a new mission</h5>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                    (click)="closeMissionModal()"
+                                                                    style="margin-bottom: 3%; width: min-content; align-self: flex-end;">&times;</button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form (ngSubmit)="submitMission()">
+                                                                    <div class="form-group">
+                                                                        <label for="missionTitle">Mission Title</label>
+                                                                        <input type="text" class="form-control"
+                                                                            id="missionTitle" name="missionTitle"
+                                                                            [(ngModel)]="missionTitle" required>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="missionValue">Mission Value</label>
+                                                                        <input type="number" class="form-control"
+                                                                            id="missionValue" name="missionValue"
+                                                                            [(ngModel)]="missionValue" required>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="missionDescription">Mission
+                                                                            Description</label>
+                                                                        <textarea class="form-control"
+                                                                            id="missionDescription"
+                                                                            name="missionDescription"
+                                                                            [(ngModel)]="missionDescription"
+                                                                            required></textarea>
+                                                                    </div>
+                                                                    <div class="form-group dropdown">
+
+                                                                        <style>
+                                                                            /* Style The Dropdown Button */
+                                                                            .dropbtn {
+                                                                                background-color: #4CAF50;
+                                                                                color: white;
+                                                                                padding: 16px;
+                                                                                font-size: 16px;
+                                                                                border: none;
+                                                                                cursor: pointer;
+                                                                            }
+
+                                                                            /* The container <div> - needed to position the dropdown content */
+                                                                            .dropdown {
+                                                                                position: relative;
+                                                                                display: inline-block;
+                                                                            }
+
+                                                                            /* Dropdown Content (Hidden by Default) */
+                                                                            .dropdown-content {
+                                                                                display: none;
+                                                                                position: absolute;
+                                                                                background-color: #f9f9f9;
+                                                                                min-width: 160px;
+                                                                                box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+                                                                                z-index: 1;
+                                                                            }
+
+                                                                            /* Links inside the dropdown */
+                                                                            .dropdown-content a {
+                                                                                color: black;
+                                                                                padding: 12px 16px;
+                                                                                text-decoration: none;
+                                                                                display: block;
+                                                                            }
+
+                                                                            /* Change color of dropdown links on hover */
+                                                                            .dropdown-content a:hover {
+                                                                                background-color: #f1f1f1
+                                                                            }
+
+                                                                            /* Show the dropdown menu on hover */
+                                                                            .dropdown:hover .dropdown-content {
+                                                                                display: block;
+                                                                            }
+
+                                                                            /* Change the background color of the dropdown button when the dropdown content is shown */
+                                                                            .dropdown:hover .dropbtn {
+                                                                                background-color: #3e8e41;
+                                                                            }
+                                                                        </style>
+
+                                                                        <div class="dropdown">
+                                                                            <button
+                                                                                class=" dropdown-toggle btn-style-one"
+                                                                                type="button" id="dropdownMenuButton"
+                                                                                data-toggle="dropdown"
+                                                                                aria-haspopup="true"
+                                                                                aria-expanded="true">
+                                                                                Difficultée
+                                                                            </button>
+                                                                            <div class="dropdown-content">
+                                                                                <a
+                                                                                    style="color: #f1f1f1; background-color: #2dab25;">easy</a>
+                                                                                <a
+                                                                                    style=" color: #f1f1f1; background-color:#FF7E00;">medium</a>
+                                                                                <a
+                                                                                    style=" color: #f1f1f1 ;background-color: #AF002A;">hard</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <button type="submit" class="btn btn-primary"
+                                                                        style="background-color: #36a05e;">Submit</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+                                                <!-- Goal field -->
+                                                <div class="form-group">
+                                                    <label for="goal">Goal</label>
+                                                    <input type="number" class="form-control"
+                                                        [(ngModel)]="objective.goal" placeholder="Goal" required>
+                                                </div>
+                                                <!-- Save button to save the changes -->
+                                                <button type="button"
+                                                    class="btn btn-style-one save-btn position-absolute"
+                                                    style="bottom: 10px; right: 10px;">Save</button>
+                                                <!-- Delete button to remove this card -->
+                                                <button *ngIf="i !== objectives.length - 1" type="button"
+                                                    class="btn-style-one delete-btn position-absolute"
+                                                    (click)="deleteObjective(i)"
+                                                    style="bottom: 10px; left: 10px;">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Plus sign button -->
+                            <div class="col-lg-6 mb-4">
+                                <div class="card position-relative" style="height: 100%;">
+                                    <div class="card-body">
+                                        <div class="contact-area style-two pl-0 pr-0 pr-lg-4">
+                                            <h3 style="padding-bottom: 80%;">Add a new objective</h3>
+                                            <button type="button" class="plus-sign position-absolute"
+                                                style="top: 50%; left: 50%; transform: translate(-50%, -50%);"
+                                                (click)="addObjective()">+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <router-outlet></router-outlet>
+        <app-footer-front></app-footer-front>
+    </div>
+</body>
