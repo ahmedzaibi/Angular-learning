@@ -159,52 +159,27 @@
                                                         <div class="modal" id="editModal">
                                                             <div class="modal-dialog" style="margin-top: 10%;">
                                                                 <div class="modal-content">
-                                                                    <div class="modal-header"
-                                                                        style="align-items: center;">
-
-                                                                        <h5>Editer
-                                                                            <span>l'étudiant</span>
-                                                                        </h5>
-                                                                        <button type="button" class="close"
-                                                                            data-dismiss="modal"
-                                                                            (click)="closeeditModal()"
-                                                                            style="margin-bottom: 3%; width: min-content; align-self: flex-end;">&times;</button>
+                                                                    <div class="modal-header" style="align-items: center;">
+                                                                        <h5>Editer <span>l'étudiant</span></h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" (click)="closeeditModal()" style="margin-bottom: 3%; width: min-content; align-self: flex-end;">&times;</button>
                                                                     </div>
-
                                                                     <div class="modal-body">
-                                                                        <style>
-                                                                            .dropdown {
-                                                                                position: relative;
-                                                                                display: inline-block;
-                                                                            }
-
-                                                                            .dropdown-content {
-                                                                                display: none;
-                                                                                position: absolute;
-                                                                                background-color: #f9f9f9;
-                                                                                min-width: 160px;
-                                                                                box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-                                                                                padding: 12px 16px;
-                                                                                z-index: 1;
-                                                                            }
-
-                                                                            .dropdown:hover .dropdown-content {
-                                                                                display: block;
-                                                                            }
-                                                                        </style>
-
-                                                                        <div class="dropdown">
-                                                                            <h6>assign student to categorie</h6>
-                                                                            <div class="dropdown-content"
-                                                                                *ngFor="let category of categories">
-                                                                                <span>{{ category.title }}</span>
-                                                                            </div>
-                                                                        </div>
+                                                                        <select class="modal-content" >
+                                                                            <option value="Please select your category" disabled selected>Please select your category</option>
+                                                                            <option value="Category 1">Category 1</option>
+                                                                            <option value="Category 2">Category 2</option>
+                                                                        </select>
+                                                                        
+                                                                        <br>
+                                                                        <h6 for="objectiveDescription" style="margin-top: 20px;">Description de l'étudiant</h6>
+                                                                        <textarea class="form-control" name="objectiveDescription" rows="3" placeholder="Description de l'etudiant" style="margin-bottom: 20px;"></textarea>
+                                                                        <button (click)="closeeditModal()" type="button" class="btn btn-style-one save-btn" style="margin-right: 10px; float: right;">Save</button>
                                                                     </div>
-
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        
+
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -230,6 +205,7 @@
 
                     </div>
                     <div class="row justify-content-center" style="align-items: baseline;">
+                      
                         <div *ngFor="let category of categories" class="col-lg-4 col-md-6">
                             <div class="team-member">
                                 <img loading="lazy" src="/assets/Front/images/team/download.jpg" alt="doctor"
@@ -354,58 +330,6 @@
                                                                             required></textarea>
                                                                     </div>
                                                                     <div class="form-group dropdown">
-
-                                                                        <style>
-                                                                            /* Style The Dropdown Button */
-                                                                            .dropbtn {
-                                                                                background-color: #4CAF50;
-                                                                                color: white;
-                                                                                padding: 16px;
-                                                                                font-size: 16px;
-                                                                                border: none;
-                                                                                cursor: pointer;
-                                                                            }
-
-                                                                            /* The container <div> - needed to position the dropdown content */
-                                                                            .dropdown {
-                                                                                position: relative;
-                                                                                display: inline-block;
-                                                                            }
-
-                                                                            /* Dropdown Content (Hidden by Default) */
-                                                                            .dropdown-content {
-                                                                                display: none;
-                                                                                position: absolute;
-                                                                                background-color: #f9f9f9;
-                                                                                min-width: 160px;
-                                                                                box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-                                                                                z-index: 1;
-                                                                            }
-
-                                                                            /* Links inside the dropdown */
-                                                                            .dropdown-content a {
-                                                                                color: black;
-                                                                                padding: 12px 16px;
-                                                                                text-decoration: none;
-                                                                                display: block;
-                                                                            }
-
-                                                                            /* Change color of dropdown links on hover */
-                                                                            .dropdown-content a:hover {
-                                                                                background-color: #f1f1f1
-                                                                            }
-
-                                                                            /* Show the dropdown menu on hover */
-                                                                            .dropdown:hover .dropdown-content {
-                                                                                display: block;
-                                                                            }
-
-                                                                            /* Change the background color of the dropdown button when the dropdown content is shown */
-                                                                            .dropdown:hover .dropbtn {
-                                                                                background-color: #3e8e41;
-                                                                            }
-                                                                        </style>
-
                                                                         <div class="dropdown">
                                                                             <button
                                                                                 class=" dropdown-toggle btn-style-one"
@@ -442,14 +366,10 @@
                                                         [(ngModel)]="objective.goal" placeholder="Goal" required>
                                                 </div>
                                                 <!-- Save button to save the changes -->
-                                                <button type="button"
-                                                    class="btn btn-style-one save-btn position-absolute"
-                                                    style="bottom: 10px; right: 10px;">Save</button>
-                                                <!-- Delete button to remove this card -->
-                                                <button *ngIf="i !== objectives.length - 1" type="button"
-                                                    class="btn-style-one delete-btn position-absolute"
-                                                    (click)="deleteObjective(i)"
-                                                    style="bottom: 10px; left: 10px;">Delete</button>
+                                                <div class="button-container" style=" margin-top: 10px;">
+                                                    <button type="button" class="btn btn-style-one save-btn" style="position: absolute; right: 10px;" (click)="addObjective()">Save</button>
+                                                    <button *ngIf="i !== objectives.length - 1" type="button" class="btn-style-one delete-btn" (click)="deleteObjective(i)" style="position: absolute; left: 10px;">Delete</button>
+                                                </div>
                                             </form>
                                         </div>
                                     </div>

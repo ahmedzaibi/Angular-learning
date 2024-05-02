@@ -15,7 +15,6 @@ this.toggleSection('objectives')
   showObjectives: boolean = false;
   newObjective: any = { title: '', description: '' };
   objectives: any[] = [];
-  selectedCategoryTitle: string = '';
   students= [
     {'name': 'Alice',
       'category':'Informatique'},
@@ -53,8 +52,15 @@ this.toggleSection('objectives')
       editModal.style.display = 'block';
     }
 }
+selectedCategoryTitle: string = 'Please select your category';
+
+selectCategory(title: string) {
+  this.selectedCategoryTitle = title;
+}
+
   closeeditModal(){
     // Close the mission modal
+    this.selectedCategoryTitle = '';
     const editModal   = document.getElementById('editModal');
     if (editModal) {
       editModal.style.display = 'none';
