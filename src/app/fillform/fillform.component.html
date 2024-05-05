@@ -102,10 +102,10 @@
                   </div>
 
                   <div class="contact-form">
-                    <form action="#" class="row">
+                    <form (submit)="submitEtudiantForm()" action="#" class="row">
                       <!-- Input field for 'bids' -->
                       <div class="col-lg-6">
-                        <input type="text" name="bids" class="form-control main etudiant-input" placeholder="poids"
+                        <input type="text" name="poids" class="form-control main etudiant-input" placeholder="poids"
                           required>
                       </div>
                       <!-- Input field for 'taille' -->
@@ -121,7 +121,7 @@
                       </div>
                       <div class="col-md-12 text-right">
                         <button class="btn btn-style-one etudiant-submit-btn" type="submit"
-                          (click)="submitEtudiantForm()">Submit</button>
+                          >Submit</button>
                       </div>
                     </form>
                   </div>
@@ -136,7 +136,7 @@
 
     <!-- Expert form section -->
     <div class="content style text-center" *ngIf="showExpertForm">
-      <div class="content style text-center" id="expertForm">
+      <form  class="content style text-center" id="expertForm" (submit)="submitExpertForm(newExpert)" enctype="multipart/form-data">
         <section class="section style-three pb-0">
           <div class="container">
             <div class="row">
@@ -148,8 +148,7 @@
                       <div class="section-title">
                         <h3>Experience</h3>
                       </div>
-                      <form name="contact_form_{{i}}" class="default-form contact-form" action="javascript:void(0)"
-                        method="post">
+                      <form (submit)="submitExperienceForm(i)" name="contact_form_{{i}}" class="default-form contact-form" action="javascript:void(0)" method="post">
                         <!-- Form fields -->
                         <div class="form-group">
                           <label for="experience">Add Experience</label>
@@ -180,14 +179,13 @@
                             required [(ngModel)]="expertForm.jobDescription"></textarea>
                         </div>
                         <!-- "+" button to add another expert form (inside the card) -->
-                        <button *ngIf="i === expertForms.length - 1" type="button"
-                          class="btn-style-one plus-sign rounded-circle position-absolute" (click)="addExpertForm()"
-                          style="bottom: 10px; right: 10px;">+</button>
-                          <button *ngIf="i !== expertForms.length - 1" type="button"
+                       
+
+                          <button  type="submit"
                           class="btn btn-style-one save-btn position-absolute"
                           style="bottom: 10px; right: 10px;">Save</button>
                         <!-- Delete button to remove this card -->
-                        <button *ngIf="i !== expertForms.length - 1" type="button"
+                        <button  type="button"
                           class="btn-style-one delete-btn position-absolute" (click)="deleteExpertForm(i)"
                           style="bottom: 10px; left: 10px;">Delete</button>
                       </form>
@@ -202,21 +200,20 @@
           <div class="col-lg-6 mb-4">
             <div class="row">
               <div class="col-lg-6" style="margin-left: 40%;">
-                <label class="etudiant-file-label">
-                  <h4>enter the demanded documents</h4>
+                <label class="dossierFile">
+                    <h4>Enter the demanded documents</h4>
                 </label>
-                <input type="file" name="dossier" class="form-control-file etudiant-file-input">
-              </div>
+                <input type="file" id="dossierFile" class="form-control-file etudiant-file-input" (change)="onFileSelected($event)">
+            </div>
+            
               <div class="col-lg-6" style="margin-left: 75%;">
-                <button type="button" class="btn btn-style-one etudiant-submit-btn mt-3"
-                  (click)="submitExpertForms()">Submit</button>
+                <button type="submit" class="btn btn-style-one mt-3">Submit</button>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </form>
     </div>
-
     <!-- End Expert form section -->
 
     <!-- Router outlet -->

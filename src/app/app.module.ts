@@ -33,6 +33,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ExpertComponent } from './expert/expert.component';
 import { EtudiantComponent } from './etudiant/etudiant.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -69,6 +70,7 @@ import { EtudiantComponent } from './etudiant/etudiant.component';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     FormsModule,
     RouterModule

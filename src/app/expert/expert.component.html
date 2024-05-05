@@ -159,26 +159,41 @@
                                                         <div class="modal" id="editModal">
                                                             <div class="modal-dialog" style="margin-top: 10%;">
                                                                 <div class="modal-content">
-                                                                    <div class="modal-header" style="align-items: center;">
+                                                                    <div class="modal-header"
+                                                                        style="align-items: center;">
                                                                         <h5>Editer <span>l'étudiant</span></h5>
-                                                                        <button type="button" class="close" data-dismiss="modal" (click)="closeeditModal()" style="margin-bottom: 3%; width: min-content; align-self: flex-end;">&times;</button>
+                                                                        <button type="button" class="close"
+                                                                            data-dismiss="modal"
+                                                                            (click)="closeeditModal()"
+                                                                            style="margin-bottom: 3%; width: min-content; align-self: flex-end;">&times;</button>
                                                                     </div>
                                                                     <div class="modal-body">
-                                                                        <select class="modal-content" >
-                                                                            <option value="Please select your category" disabled selected>Please select your category</option>
-                                                                            <option value="Category 1">Category 1</option>
-                                                                            <option value="Category 2">Category 2</option>
+                                                                        <select class="modal-content">
+                                                                            <option value="Please select your category"
+                                                                                disabled selected>Please select your
+                                                                                category</option>
+                                                                            <option value="Category 1">Category 1
+                                                                            </option>
+                                                                            <option value="Category 2">Category 2
+                                                                            </option>
                                                                         </select>
-                                                                        
+
                                                                         <br>
-                                                                        <h6 for="objectiveDescription" style="margin-top: 20px;">Description de l'étudiant</h6>
-                                                                        <textarea class="form-control" name="objectiveDescription" rows="3" placeholder="Description de l'etudiant" style="margin-bottom: 20px;"></textarea>
-                                                                        <button (click)="closeeditModal()" type="button" class="btn btn-style-one save-btn" style="margin-right: 10px; float: right;">Save</button>
+                                                                        <h6 for="objectiveDescription"
+                                                                            style="margin-top: 20px;">Description de
+                                                                            l'étudiant</h6>
+                                                                        <textarea class="form-control"
+                                                                            name="objectiveDescription" rows="3"
+                                                                            placeholder="Description de l'etudiant"
+                                                                            style="margin-bottom: 20px;"></textarea>
+                                                                        <button (click)="closeeditModal()" type="button"
+                                                                            class="btn btn-style-one save-btn"
+                                                                            style="margin-right: 10px; float: right;">Save</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        
+
 
                                                     </td>
                                                 </tr>
@@ -194,6 +209,30 @@
         </div>
 
 
+        <style>
+            /* Custom CSS for team section cards */
+            .team-section .card {
+                height: 100%;
+                box-shadow: 10px 10px 20px rgba(36, 36, 36, 0.5);
+
+                /* Ensure all cards have the same height */
+            }
+            
+            .team-section .card img {
+                object-fit: cover;
+                /* Fit the images to cover the card */
+                height: 200px;
+                /* Set the height of the images */
+                width: 100%;
+                /* Ensure images take the full width of the card */
+            }
+
+            .team-section .btn-main:hover {
+                box-shadow: 10px 10px 20px rgba(36, 36, 36, 0.5);
+                /* Hover effect */
+            }
+        </style>
+
         <div *ngIf="showCategorieEtudiant">
             <!--team section-->
             <section class="team-section section">
@@ -202,50 +241,38 @@
                         <h3>Les Catégories
                             <span>des étudiants</span>
                         </h3>
-
                     </div>
                     <div class="row justify-content-center" style="align-items: baseline;">
-                      
-                        <div *ngFor="let category of categories" class="col-lg-4 col-md-6">
-                            <div class="team-member">
-                                <img loading="lazy" src="/assets/Front/images/team/download.jpg" alt="doctor"
-                                    class="img-fluid">
-                                <div class="contents text-center">
-                                    <h4>{{ category.title }}</h4>
-
+                        <div class="col-lg-4 col-md-6 mb-4" *ngFor="let category of categories">
+                            <div class="card team-member">
+                                <img loading="lazy" src="/assets/Front/images/team/download.jpg" alt="category"
+                                    class="card-img-top img-fluid">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ category.nomCategory }}</h5>
                                     <button type="button" class="btn btn-main"
-                                        (click)="openCategorieModal(category.title)">Consulter</button>
+                                        (click)="openCategorieModal(category.nomCategory)">Consulter</button>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-                                <div class="modal" id="categorieModal">
-                                    <div class="modal-dialog" style="margin-top: 10%;">
-                                        <div class="modal-content">
-                                            <div class="modal-header" style="align-items: center;">
-                                                <h5 id="categorieModalTitle"
-                                                    style="margin-left: 33%; width: max-content; align-self: flex-start;">
-                                                    Titre du Categorie</h5>
-
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                    (click)="closeCategorieModal()"
-                                                    style="margin-bottom: 3%; width: min-content; align-self: flex-end;">&times;</button>
-                                            </div>
-
-                                            <div class="modal-body">
-                                                <ul>
-                                                    <!-- Filter objectives based on selected category title -->
-                                                    <li *ngFor="let category of categories">
-                                                        <ng-container *ngIf="category.title === selectedCategoryTitle">
-                                                            <h5>{{ category.title }}</h5>
-                                                            <ul>
-                                                                <li *ngFor="let objective of category.objectives">{{
-                                                                    objective }}</li>
-                                                            </ul>
-                                                        </ng-container>
-                                                    </li>
-                                                </ul>
-                                            </div>
-
-                                        </div>
+            <!-- Add new category section -->
+            <section class="team-section section">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-4 col-md-6">
+                            <div class="card team-member">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Ajouter une nouvelle catégorie</h5>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control mb-3" placeholder="Category Title"
+                                            [(ngModel)]="newCategoryTitle">
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-main"
+                                            (click)="addCategory()">Ajouter</button>
                                     </div>
                                 </div>
                             </div>
@@ -253,9 +280,12 @@
                     </div>
                 </div>
             </section>
-            <!--End team section-->
-
         </div>
+
+
+
+
+
         <!-- Objectives section -->
         <div class="content style text-center" *ngIf="showObjectives">
             <div class="content style text-center" id="expertForm">
@@ -271,19 +301,19 @@
                             <!-- Displayed cards -->
                             <div *ngFor="let objective of objectives; let i = index" class="col-lg-6 mb-4">
                                 <div class="card position-relative">
-                                    <div class="card-body">
+                                    <div class="card-body ">
                                         <div class="contact-area style-two pl-0 pr-0 pr-lg-4">
                                             <div class="section-title">
-                                                <input type="text" class="form-control" [(ngModel)]="objective.title"
-                                                    placeholder="Objective Title">
+                                                <label for="objectiveTitle">Objective Title</label>
+                                                <input type="text" class="form-control" [(ngModel)]="newObjective.objectiveTitle" name="objectiveTitle" placeholder="Titre de l'Objective">
+
                                             </div>
-                                            <form name="objective_form_{{i}}" class="default-form contact-form"
-                                                action="javascript:void(0)" method="post">
+                                            <form (submit)="saveObjective(newObjective)" name="objective_form_{{i}}" class="default-form contact-form" action="javascript:void(0)" method="post">
+
                                                 <div class="form-group">
                                                     <label for="objectiveDescription">Objective Description</label>
-                                                    <textarea class="form-control" name="objectiveDescription" rows="3"
-                                                        placeholder="Objective Description" required
-                                                        [(ngModel)]="objective.description"></textarea>
+                                                    <textarea class="form-control" rows="3" placeholder="Description de l'Objective" required [(ngModel)]="newObjective.objectiveDescription" name="objectiveDescription" [ngModelOptions]="{ standalone: true }"></textarea>
+
                                                 </div>
                                                 <!-- Mission button -->
                                                 <div class="form-group"
@@ -329,25 +359,23 @@
                                                                             [(ngModel)]="missionDescription"
                                                                             required></textarea>
                                                                     </div>
-                                                                    <div class="form-group dropdown">
-                                                                        <div class="dropdown">
-                                                                            <button
-                                                                                class=" dropdown-toggle btn-style-one"
-                                                                                type="button" id="dropdownMenuButton"
-                                                                                data-toggle="dropdown"
-                                                                                aria-haspopup="true"
-                                                                                aria-expanded="true">
-                                                                                Difficultée
-                                                                            </button>
-                                                                            <div class="dropdown-content">
-                                                                                <a
-                                                                                    style="color: #f1f1f1; background-color: #2dab25;">easy</a>
-                                                                                <a
-                                                                                    style=" color: #f1f1f1; background-color:#FF7E00;">medium</a>
-                                                                                <a
-                                                                                    style=" color: #f1f1f1 ;background-color: #AF002A;">hard</a>
-                                                                            </div>
-                                                                        </div>
+                                                                    <div class="form-group dropdown"
+                                                                        style="width: 30%;">
+                                                                        <select class="modal-content">
+                                                                            <option
+                                                                                value="Please select your difficulty"
+                                                                                disabled selected>Difficulty</option>
+                                                                            <option value="easy"
+                                                                                style="color: #f1f1f1; background-color: #2dab25;">
+                                                                                Easy</option>
+                                                                            <option value="medium"
+                                                                                style="color: #f1f1f1; background-color: #FF7E00;">
+                                                                                Medium</option>
+                                                                            <option value="hard"
+                                                                                style="color: #f1f1f1; background-color: #AF002A;">
+                                                                                Hard</option>
+                                                                        </select>
+
                                                                     </div>
                                                                     <button type="submit" class="btn btn-primary"
                                                                         style="background-color: #36a05e;">Submit</button>
@@ -362,13 +390,23 @@
                                                 <!-- Goal field -->
                                                 <div class="form-group">
                                                     <label for="goal">Goal</label>
-                                                    <input type="number" class="form-control"
-                                                        [(ngModel)]="objective.goal" placeholder="Goal" required>
+                                                    <input type="number" class="form-control" [(ngModel)]="newObjective.goal" placeholder="Goal" required name="goal" [ngModelOptions]="{ standalone: true }">
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="categorySelect">Category</label>
+                                                    <select class="form-control" name="categorySelect" [(ngModel)]="newObjective.categoryEtudiant.idCategorie" >
+                                                        <option *ngFor="let category of categories" [ngValue]="category.idCategorie">{{ category.nomCategory }}</option>
+                                                    </select>
                                                 </div>
                                                 <!-- Save button to save the changes -->
                                                 <div class="button-container" style=" margin-top: 10px;">
-                                                    <button type="button" class="btn btn-style-one save-btn" style="position: absolute; right: 10px;" (click)="addObjective()">Save</button>
-                                                    <button *ngIf="i !== objectives.length - 1" type="button" class="btn-style-one delete-btn" (click)="deleteObjective(i)" style="position: absolute; left: 10px;">Delete</button>
+                                                    <button type="submit" class="btn btn-style-one save-btn"
+                                                        style="position: absolute; right: 10px;"
+                                                        >Save</button>
+                                                    <button *ngIf="i !== objectives.length - 1" type="submit"
+                                                        class="btn-style-one delete-btn" (click)="deleteObjective(i)"
+                                                        style="position: absolute; left: 10px;">Delete</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -383,7 +421,7 @@
                                             <h3 style="padding-bottom: 80%;">Add a new objective</h3>
                                             <button type="button" class="plus-sign position-absolute"
                                                 style="top: 50%; left: 50%; transform: translate(-50%, -50%);"
-                                                (click)="addObjective()">+</button>
+                                                (click)="addNewForm()">+</button>
                                         </div>
                                     </div>
                                 </div>

@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { TherapyService } from '../therapy.service';
+import { Category } from '../models/Category';
+import { Objective } from '../models/Objective';
+import { lastValueFrom, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-expert',
@@ -6,45 +10,65 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./expert.component.css']
 })
 export class ExpertComponent implements OnInit {
+  constructor(private therapyService: TherapyService) { }
   ngOnInit(): void {
-this.toggleSection('objectives')
-
+this.toggleSection('objectives');
+this.retrieveCategories();
+this.retrieveStudents();
+  }
+  defultCategorie:Category={
+    idCategorie:0,
+    etudiants:[],
+   nomCategory:'',
+   objectives:[] 
+    
   }
    showEtudiants: boolean = false;
   showCategorieEtudiant: boolean = false
   showObjectives: boolean = false;
-  newObjective: any = { title: '', description: '' };
-  objectives: any[] = [];
+  objectives: Objective[] = []; // Initialize objectives array
+  newObjective: Objective = {
+    idObjective: 0,
+    objectiveTitle: '',
+    objectiveDescription: '',
+    missions: [],
+    categoryEtudiant: this.defultCategorie, // Initialize categoryEtudiant property
+    goal: 0
+  };
   students= [
     {'name': 'Alice',
       'category':'Informatique'},
      {'name': 'Bob','category':'Physique'}
   
   ]
-  categories = [
-    {
-        id: 1,
-        title: 'Categorie title 1',
-        image: '/assets/Front/images/team/images.jpg',
-        objectives: ['Objective 1', 'Objective 2', 'Objective 3']
-    },
-    {
-        id: 2,
-        title: 'Categorie title 2',
-        image: '/assets/Front/images/team/images (1).jpg',
-        objectives: ['Objective A', 'Objective B', 'Objective C']
-    },
-    // Add more categories as needed
-];
-
-  // Modal variables
+  categories: Category[] = [];
+  // Modal variables  
   missionTitle: string = '';
   missionValue: number = 0;
   missionDescription: string = '';
   mission: string = '';
+  idCategory:number=0;
 
-  
-
+   addNewForm() {
+    this.objectives.push({
+      idObjective: 0,
+      objectiveTitle: '',
+      objectiveDescription: '',
+      categoryEtudiant: this.defultCategorie,
+      missions: [],
+      goal: 0
+    });
+  }
+  retrieveStudents() {
+    this.therapyService.getAllEtudiants().subscribe(
+      (students: any[]) => {
+        this.students = students;
+      },
+      (error) => {
+        console.error('Error fetching students:', error);
+      }
+    );
+  }
   openeditModal() {
     
     const editModal = document.getElementById('editModal');
@@ -54,8 +78,8 @@ this.toggleSection('objectives')
 }
 selectedCategoryTitle: string = 'Please select your category';
 
-selectCategory(title: string) {
-  this.selectedCategoryTitle = title;
+selectCategory(category: Category) {
+  this.newObjective.categoryEtudiant = category;
 }
 
   closeeditModal(){
@@ -113,23 +137,81 @@ selectCategory(title: string) {
     this.showObjectives = section === 'objectives';
   }
 
-  addObjective() {
-    this.objectives.push({ title: '', description: '' });
-    // Scroll to the new objective
-    setTimeout(() => {
-      const element = document.getElementById('newObjectiveCard');
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
-      }
-    }, 100);
+  saveObjective(newObjective: Objective) {
+     // Provide a default value
+  
+    this.therapyService.assignObjectiveToCategory(newObjective.categoryEtudiant.idCategorie, newObjective.idObjective)
+       this.therapyService.addObjective(newObjective)
+      .subscribe(
+       async (addedObjective: Objective) => {
+          let response=await lastValueFrom(this.therapyService.assignObjectiveToCategory(newObjective.categoryEtudiant.idCategorie, addedObjective.idObjective));
+          // Clear the form for the next entry
+          this.newObjective = {
+            idObjective: 0,
+            objectiveTitle: '',
+            objectiveDescription: '',
+            categoryEtudiant: this.defultCategorie,
+            missions: [],
+            goal: 0
+          };
+          console.log('Objective added successfully:', addedObjective);
+        },
+        (error) => {
+          console.error('Error adding objective:', error);
+        }
+      );
   }
 
+  
   deleteObjective(index: number) {
     this.objectives.splice(index, 1);
   }
   // In your component.ts file
 isDropdownOpen: boolean = false;
+newCategoryTitle: string = ''; // To store the title of the new category
 
+  
+retrieveCategories() {
+  this.therapyService.retrieveAllCategories().subscribe(
+    (categories: Category[]) => {
+      this.categories = categories;
+    },
+    (error) => {
+      console.error('Error fetching categories:', error);
+    }
+  );
+}
 
+addCategory() {
+    const newCategory: Category = {
+      idCategorie: 0, // This will be assigned by the backend
+      nomCategory: this.newCategoryTitle, // Set the title to the value of newCategoryTitle
+      etudiants:[],
+      objectives: []
+    };
+
+    this.therapyService.addCategory(newCategory).subscribe(
+    (addedCategory: Category) => {
+      this.categories.push(addedCategory);
+      this.newCategoryTitle = ''; // Clear input field
+      
+    },
+    (error) => {
+      console.error('Error adding category:', error);
+    }
+  );
+  this.retrieveCategories();
+}
+
+deleteCategory(id: number) {
+  this.therapyService.removeCategory(id).subscribe(
+    () => {
+      this.categories = this.categories.filter((category) => category.idCategorie !== id);
+    },
+    (error) => {
+      console.error('Error deleting category:', error);
+    }
+  );
+}
 
 }
