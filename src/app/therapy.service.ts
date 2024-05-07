@@ -6,6 +6,7 @@ import { Objective } from './models/Objective';
 import { Etudiant } from './models/Etudiant';
 import { Expert } from './models/Expert';
 import { Experience } from './models/Experience';
+import { Mission } from './models/Mission';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,9 @@ export class TherapyService {
   constructor(private http: HttpClient) { }
 
   // Category endpoints
-
+  retrieveCategory(idCategorie:number): Observable<Category> {
+    return this.http.get<Category>(`${this.apiServerUrl}/categories-etudiant/retrieve/${idCategorie}`);
+  }
   addCategory(category: Category): Observable<Category> {
     return this.http.post<Category>(`${this.apiServerUrl}/categories-etudiant/add`, category);
   }
@@ -48,8 +51,8 @@ export class TherapyService {
     return this.http.post<Objective>(`${this.apiServerUrl}/objectives/addObjective`, objective);
   }
 
-  updateObjective(objective: Objective): Observable<Objective> {
-    return this.http.put<Objective>(`${this.apiServerUrl}/objectives/update/${objective.idObjective}`, objective);
+  updateObjective(objective: Objective | undefined): Observable<Objective> {
+    return this.http.put<Objective>(`${this.apiServerUrl}/objectives/update/${objective?.idObjective}`, objective);
   }
 
   removeObjective(id: number): Observable<void> {
@@ -59,9 +62,15 @@ export class TherapyService {
   retrieveAllObjectives(): Observable<Objective[]> {
     return this.http.get<Objective[]>(`${this.apiServerUrl}/objectives/retrieve-all`);
   }
-
+  
+  retrieveObjective(idObjective:number): Observable<Objective> {
+    return this.http.get<Objective>(`${this.apiServerUrl}/objectives/retrieve/${idObjective}`);
+  }
   addMissionToObjective(idMission: number, idObjective: number): Observable<void> {
     return this.http.post<void>(`${this.apiServerUrl}/objectives/addMissionToObjective/${idMission}/${idObjective}`, null);
+  }
+  getByCategory(): Observable<Objective[]> {
+    return this.http.get<Objective[]>(`${this.apiServerUrl}/objectives/getByCategory/1`);
   }
   // Student Endpoint 
   addEtudiant(etudiant: Etudiant): Observable<Etudiant> {
@@ -154,4 +163,10 @@ retrieveAllExperiences(): Observable<Experience[]> {
 getExperienceById(idExperience: number): Observable<Experience> {
   return this.http.get<Experience>(`${this.apiServerUrl}/experiences/${idExperience}`);
 }
+
+// Inside TherapyService class
+getMissionsByObjective(objectiveId: number): Observable<Mission[]> {
+  return this.http.get<Mission[]>(`${this.apiServerUrl}/missions/getAllByObjective/${objectiveId}`);
+}
+
 }

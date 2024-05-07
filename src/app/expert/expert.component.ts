@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TherapyService } from '../therapy.service';
 import { Category } from '../models/Category';
 import { Objective } from '../models/Objective';
-import { lastValueFrom, switchMap } from 'rxjs';
+import { Observable, lastValueFrom, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-expert',
@@ -10,11 +10,14 @@ import { lastValueFrom, switchMap } from 'rxjs';
   styleUrls: ['./expert.component.css']
 })
 export class ExpertComponent implements OnInit {
+
+
   constructor(private therapyService: TherapyService) { }
   ngOnInit(): void {
 this.toggleSection('objectives');
 this.retrieveCategories();
 this.retrieveStudents();
+this.retrieveObjectives();
   }
   defultCategorie:Category={
     idCategorie:0,
@@ -23,6 +26,7 @@ this.retrieveStudents();
    objectives:[] 
     
   }
+  
    showEtudiants: boolean = false;
   showCategorieEtudiant: boolean = false
   showObjectives: boolean = false;
@@ -78,9 +82,7 @@ this.retrieveStudents();
 }
 selectedCategoryTitle: string = 'Please select your category';
 
-selectCategory(category: Category) {
-  this.newObjective.categoryEtudiant = category;
-}
+*
 
   closeeditModal(){
     // Close the mission modal
@@ -100,13 +102,12 @@ selectCategory(category: Category) {
         categorieModal.style.display = 'block';
     }
 }
-  openMissionModal() {
-    // Display the mission modal
-    const missionModal = document.getElementById('missionModal');
-    if (missionModal) {
-      missionModal.style.display = 'block';
-    }
+openMissionModal() {
+  const modalElement = document.getElementById('missionModal');
+  if (modalElement) {
+    modalElement.style.display = 'block';
   }
+}
   closeCategorieModal() {
     // Close the mission modal
     const categorieModal   = document.getElementById('categorieModal');
@@ -116,19 +117,20 @@ selectCategory(category: Category) {
   }
 
   closeMissionModal() {
-    // Close the mission modal
-    const missionModal = document.getElementById('missionModal');
-    if (missionModal) {
-      missionModal.style.display = 'none';
+    const modalElement = document.getElementById('missionModal');
+    if (modalElement) {
+        modalElement.style.display = 'none';
     }
-  }
+}
 
-  submitMission() {
-    // Handle form submission here
-    console.log('Mission submitted');
-    // Close the mission modal after submission
-    this.closeMissionModal();
-  }
+
+submitMission() {
+  // Handle form submission here
+  console.log('Mission submitted');
+  this.incrementSubmittedMissions();
+  // Close the mission modal after submission
+  this.closeMissionModal();
+}
 
   toggleSection(section: string) {
     
@@ -213,5 +215,130 @@ deleteCategory(id: number) {
     }
   );
 }
+submittedMissions: number = 0; // Initialize the counter for submitted missions
 
+
+retrieveObjectives() {
+  this.therapyService.retrieveAllObjectives().subscribe(
+    (objectives: Objective[]) => {
+      this.objectives = objectives;
+    },
+    (error) => {
+      console.error('Error fetching categories:', error);
+    }
+  );
+}  selectedObjective: Objective | null =null;
+selectedCategory: Category | null=null;
+retrieveObjectiveById(idObjective: number) {
+  this.therapyService.retrieveObjective(idObjective).subscribe(
+    (objective: Objective) => {
+      this.selectedObjective = { ...objective }; // Copy the retrieved objective to preserve its ID
+      console.log('Retrieved objective:', this.selectedObjective);
+      // Assign the retrieved objective to a variable or use it as needed in your component
+    },
+    (error) => {
+      console.error('Error fetching objective:', error);
+      // Handle error if needed
+    }
+  );
+}
+updateObjective() {
+  if (!this.selectedObjective) {
+    console.error('No objective selected.');
+    return;
+  }
+  
+  this.therapyService.updateObjective(this.selectedObjective).subscribe(
+    (updatedObjective: Objective) => {
+      console.log('Objective updated successfully:', updatedObjective);
+      // Optionally, you can perform any additional actions upon successful update
+    },
+    (error) => {
+      console.error('Error updating objective:', error);
+      // Handle error if needed
+    }
+  );
+}
+
+missionCount: number = 0;
+
+
+incrementSubmittedMissions() {
+  this.submittedMissions++;
+  this.missionCount++; // Increment the mission count
+}
+//Objective Etudiant :diviser l'affichage
+showAffichageObjective: any;
+showAddObjective: any;
+toggleAddObjectives() {
+  this.showAddObjective = true;
+  this.showAffichageObjective = false;
+}
+toggleShowObjectives() {
+  this.showAffichageObjective = true;
+  this.showAddObjective = false;
+}
+
+showAllObjectives: boolean=true;
+showOneObjective: boolean=false;
+toggleAllObjectives() {
+  this.showAllObjectives = true;
+  this.showOneObjective = false;
+}
+toggleOneObjective() {
+  this.showOneObjective = true;
+  this.showAllObjectives = false;
+}
+//category etudiant :  diviser l'affichage
+showAffichageCategory: any;
+showAddCategory:any;
+toggleShowCategories(){
+  this.showAffichageCategory=true;
+  this.showAddCategory=false;
+}
+toggleAddCategories(){
+  this.showAddCategory=true;
+  this.showAffichageCategory=false;
+}
+showAllCategories: boolean=true;
+showOneCategories: boolean=false;
+toggleAllCategory() {
+  this.showAllCategories = true;
+  this.showOneCategories = false;
+}
+toggleOneCategory() {
+  this.showOneCategories = true;
+  this.showAllCategories = false;
+}
+retrieveCategoryById(idCategory: number) {
+  this.therapyService.retrieveCategory(idCategory).subscribe(
+    (category: Category) => {
+      this.selectedCategory = { ...category }; // Copy the retrieved objective to preserve its ID
+      console.log('Retrieved objective:', this.selectedCategory);
+      // Assign the retrieved objective to a variable or use it as needed in your component
+    },
+    (error) => {
+      console.error('Error fetching objective:', error);
+      // Handle error if needed
+    }
+  );
+  }
+  updateCategory() {
+    if (!this.selectedCategory) {
+      console.error('No objective selected.');
+      return;
+    }
+    
+    this.therapyService.updateCategory(this.selectedCategory).subscribe(
+      (updatedCategory: Category) => {
+        console.log('Objective updated successfully:', updatedCategory);
+        // Optionally, you can perform any additional actions upon successful update
+      },
+      (error) => {
+        console.error('Error updating objective:', error);
+        // Handle error if needed
+      }
+    );
+  }
+  
 }

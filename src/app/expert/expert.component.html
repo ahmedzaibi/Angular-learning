@@ -217,7 +217,7 @@
 
                 /* Ensure all cards have the same height */
             }
-            
+
             .team-section .card img {
                 object-fit: cover;
                 /* Fit the images to cover the card */
@@ -236,29 +236,80 @@
         <div *ngIf="showCategorieEtudiant">
             <!--team section-->
             <section class="team-section section">
-                <div class="container">
-                    <div class="section-title text-center">
-                        <h3>Les Catégories
-                            <span>des étudiants</span>
-                        </h3>
-                    </div>
-                    <div class="row justify-content-center" style="align-items: baseline;">
-                        <div class="col-lg-4 col-md-6 mb-4" *ngFor="let category of categories">
-                            <div class="card team-member">
-                                <img loading="lazy" src="/assets/Front/images/team/download.jpg" alt="category"
-                                    class="card-img-top img-fluid">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ category.nomCategory }}</h5>
-                                    <button type="button" class="btn btn-main"
-                                        (click)="openCategorieModal(category.nomCategory)">Consulter</button>
+                <div class="hero-slider">
+                    <div class="slider-item slide1"
+                        style="background-image: url(/assets/Front/images/background/mental.jpg)">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="content style text-center">
+                                        <button class="btn btn-main btn-white"
+                                            (click)="toggleShowCategories();toggleAllCategory()"
+                                            data-animation-in="slideInLeft" data-duration-in="1.2">afficher les
+                                            Categories</button>
+                                        <button class="btn btn-main btn-white" (click)="toggleAddCategories()"
+                                            data-animation-in="slideInLeft" data-duration-in="1.2"
+                                            style="margin-left: 10%;">Ajouter une Categorie</button>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
-
-            <!-- Add new category section -->
+                <div *ngIf="showAffichageCategory" class="container">
+                    <div *ngIf="showAllCategories" class="container">
+                        <div class="container">
+                            <div class="section-title text-center">
+                                <h3>Les Catégories
+                                    <span>des étudiants</span>
+                                </h3>
+                            </div>
+                            <div class="row justify-content-center" style="align-items: baseline;">
+                                <div class="col-lg-4 col-md-6 mb-4" *ngFor="let category of categories">
+                                    <div class="card team-member">
+                                        <img loading="lazy" src="/assets/Front/images/background/mental.jpg" alt="category"
+                                            class="card-img-top img-fluid">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ category.nomCategory }}</h5>
+                                            <button type="button" class="btn btn-main"
+                                                (click)="retrieveCategoryById(category.idCategorie);toggleOneCategory()">Consulter</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="showOneCategories" class="container">
+                        <div class="row">
+                            <!-- Displayed cards -->
+                            <div class="row justify-content-center">
+                            <div  class="col-lg-6 mb-2">
+                            <div class="card position-relative">
+                                <div class="card-body ">
+                                    <div class="contact-area style-two pl-0 pr-0 pr-lg-4">   
+                                <form (submit)="updateCategory();toggleAllCategory()" class="default-form contact-form" action="javascript:void(0)"
+                                    method="post">
+                                        <div class="form-group">
+                                            <label for="nomCategory">nom Du Category:</label>
+                                            <input type="text" class="form-control" id="nomCategory" name="nomCategory"
+                                                *ngIf="selectedCategory" required
+                                                [(ngModel)]="selectedCategory.nomCategory"
+                                                [placeholder]="selectedCategory.nomCategory">
+                                        </div>  
+                                        <button type="submit" class="btn btn-main">modifier</button>
+                                    </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div *ngIf="showAddCategory" class="container">
+                     <!-- Add new category section -->
             <section class="team-section section">
                 <div class="container">
                     <div class="row justify-content-center">
@@ -280,6 +331,10 @@
                     </div>
                 </div>
             </section>
+                </div>
+            </section>
+
+           
         </div>
 
 
@@ -287,32 +342,133 @@
 
 
         <!-- Objectives section -->
+
         <div class="content style text-center" *ngIf="showObjectives">
+
             <div class="content style text-center" id="expertForm">
                 <section class="section style-three pb-0">
-                    <div class="container">
+                    <div class="hero-slider">
+                        <div class="slider-item slide1"
+                            style="background-image: url(/assets/Front/images/background/objective.jpg)">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="content style text-center">
+                                            <button class="btn btn-main btn-white"
+                                                (click)="toggleShowObjectives();toggleAllObjectives()"
+                                                data-animation-in="slideInLeft" data-duration-in="1.2">afficher les
+                                                Objectives</button>
+                                            <button class="btn btn-main btn-white" (click)="toggleAddObjectives()"
+                                                data-animation-in="slideInLeft" data-duration-in="1.2"
+                                                style="margin-left: 10%;">Ajouter Objective</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="showAffichageObjective" class="container">
+
+                        <div *ngIf="showAllObjectives" class="container">
+
+                            <section class="team-section section">
+                                <div class="container">
+                                    <div class="section-title text-center">
+                                        <h3>Les Objectives
+                                            <span>des étudiants</span>
+                                        </h3>
+                                    </div>
+                                    <div class="row justify-content-center" style="align-items: baseline;">
+                                        <div class="col-lg-4 col-md-6 mb-4" *ngFor="let objective of objectives">
+                                            <div class="card team-member">
+                                                <img loading="lazy" src="/assets/Front/images/background/objective.jpg"
+                                                    alt="category" class="card-img-top img-fluid">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">{{ objective.objectiveTitle }}</h5>
+                                                    <button type="button" class="btn btn-main"
+                                                        (click)="retrieveObjectiveById(objective.idObjective);toggleOneObjective()">Consulter</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <div *ngIf="showOneObjective" class="container">
+                            <div class="row">
+                                <!-- Displayed cards -->
+                                <div class="row justify-content-center">
+                                <div  class="col-lg-6 mb-2">
+                                <div class="card position-relative">
+                                    <div class="card-body ">
+                                        <div class="contact-area style-two pl-0 pr-0 pr-lg-4">   
+                                    <form (submit)="updateObjective();toggleAllObjectives();" class="default-form contact-form" action="javascript:void(0)"
+                                        method="post">
+                                            <div class="form-group">
+                                                <label for="objectiveTitle">Title:</label>
+                                                <input type="text" class="form-control" id="objectiveTitle" name="objectiveTitle"
+                                                    *ngIf="selectedObjective" required
+                                                    [(ngModel)]="selectedObjective.objectiveTitle"
+                                                    [placeholder]="selectedObjective.objectiveTitle">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="objectiveDescription">Description:</label>
+                                                <textarea class="form-control" id="objectiveDescription" name="objectiveDescription"
+                                                        *ngIf="selectedObjective" required
+                                                        [(ngModel)]="selectedObjective.objectiveDescription"
+                                                        [placeholder]="selectedObjective.objectiveDescription"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="goal">Goal:</label>
+                                                <input type="number" class="form-group" id="goal" name="goal"
+                                                    *ngIf="selectedObjective" required
+                                                    [(ngModel)]="selectedObjective.goal"
+                                                    [placeholder]="selectedObjective.goal.toString()">
+                                            </div>
+                                            <button type="submit" class="btn btn-main">modifier</button>
+                                        </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div *ngIf="showAddObjective" class="container">
+
                         <div class="section-title text-center " style="margin-bottom: 40PX;">
-                            <h3>Les Objectives
-                                <span>des étudiants</span>
+                            <h3>Ajouter
+                                <span>un objective</span>
                             </h3>
 
                         </div>
                         <div class="row">
-                            <!-- Displayed cards -->
-                            <div *ngFor="let objective of objectives; let i = index" class="col-lg-6 mb-4">
+                            <!-- Displayed cards --><div class="row justify-content-center">
+                            <div  class="col-lg-6 mb-4">
                                 <div class="card position-relative">
                                     <div class="card-body ">
                                         <div class="contact-area style-two pl-0 pr-0 pr-lg-4">
                                             <div class="section-title">
                                                 <label for="objectiveTitle">Objective Title</label>
-                                                <input type="text" class="form-control" [(ngModel)]="newObjective.objectiveTitle" name="objectiveTitle" placeholder="Titre de l'Objective">
+                                                <input type="text" class="form-control"
+                                                    [(ngModel)]="newObjective.objectiveTitle" name="objectiveTitle"
+                                                    placeholder="Titre de l'Objective">
 
                                             </div>
-                                            <form (submit)="saveObjective(newObjective)" name="objective_form_{{i}}" class="default-form contact-form" action="javascript:void(0)" method="post">
+                                            <form (submit)="saveObjective(newObjective)" name="objective_form"
+                                                class="default-form contact-form" action="javascript:void(0)"
+                                                method="post">
 
                                                 <div class="form-group">
                                                     <label for="objectiveDescription">Objective Description</label>
-                                                    <textarea class="form-control" rows="3" placeholder="Description de l'Objective" required [(ngModel)]="newObjective.objectiveDescription" name="objectiveDescription" [ngModelOptions]="{ standalone: true }"></textarea>
+                                                    <textarea class="form-control" rows="3"
+                                                        placeholder="Description de l'Objective" required
+                                                        [(ngModel)]="newObjective.objectiveDescription"
+                                                        name="objectiveDescription"
+                                                        [ngModelOptions]="{ standalone: true }"></textarea>
 
                                                 </div>
                                                 <!-- Mission button -->
@@ -383,50 +539,37 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-
-
-
+                                                </div>     
+                                                <div class="form-group">
+                                                    <label>Missions Added: {{ missionCount }}</label>
+                                                  </div>
                                                 <!-- Goal field -->
                                                 <div class="form-group">
                                                     <label for="goal">Goal</label>
-                                                    <input type="number" class="form-control" [(ngModel)]="newObjective.goal" placeholder="Goal" required name="goal" [ngModelOptions]="{ standalone: true }">
-
+                                                    <input type="number" class="form-control"
+                                                        [(ngModel)]="newObjective.goal" placeholder="Goal" required
+                                                        name="goal" [ngModelOptions]="{ standalone: true }">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="categorySelect">Category</label>
-                                                    <select class="form-control" name="categorySelect" [(ngModel)]="newObjective.categoryEtudiant.idCategorie" >
-                                                        <option *ngFor="let category of categories" [ngValue]="category.idCategorie">{{ category.nomCategory }}</option>
+                                                    <select class="form-control" name="categorySelect"
+                                                        [(ngModel)]="newObjective.categoryEtudiant">
+                                                        <option *ngFor="let category of categories"
+                                                            [ngValue]="category.nomCategory">{{ category.nomCategory }}
+                                                        </option>
                                                     </select>
                                                 </div>
                                                 <!-- Save button to save the changes -->
                                                 <div class="button-container" style=" margin-top: 10px;">
                                                     <button type="submit" class="btn btn-style-one save-btn"
-                                                        style="position: absolute; right: 10px;"
-                                                        >Save</button>
-                                                    <button *ngIf="i !== objectives.length - 1" type="submit"
-                                                        class="btn-style-one delete-btn" (click)="deleteObjective(i)"
-                                                        style="position: absolute; left: 10px;">Delete</button>
+                                                        style="position: absolute; right: 10px;">Save</button>
                                                 </div>
                                             </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- Plus sign button -->
-                            <div class="col-lg-6 mb-4">
-                                <div class="card position-relative" style="height: 100%;">
-                                    <div class="card-body">
-                                        <div class="contact-area style-two pl-0 pr-0 pr-lg-4">
-                                            <h3 style="padding-bottom: 80%;">Add a new objective</h3>
-                                            <button type="button" class="plus-sign position-absolute"
-                                                style="top: 50%; left: 50%; transform: translate(-50%, -50%);"
-                                                (click)="addNewForm()">+</button>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
-
                         </div>
                     </div>
                 </section>
